@@ -78,9 +78,9 @@ def get_total_coverage():
 
 def calc_change(new: float, old: float):
     if old < 1e-5:
-        return new
+        return 100
     if new < 1e-5:
-        return -1 * old
+        return -100
     if new > old:
         return (new - old) / old
     else:
@@ -103,15 +103,16 @@ def _check_coverage():
         current_coverage = float(db.select_coverage(current_hash) or 0)
         previous_coverage = float(db.select_coverage(previous_hash) or 0)
         change = calc_change(current_coverage, previous_coverage)
-        
-        print(current_coverage, previous_coverage)
-        if current_coverage < previous_coverage:
-            click.echo(f"Current code coverage has decreased. Loss: {change}%")
-            raise DiminishingCoverageError
-        if current_coverage > previous_coverage:
-            click.echo(f"Current code coverage has increased. Win: {change}%")
-        else:
-            click.echo(f"Current code coverage is: {current_coverage}%")
+        try:
+            if current_coverage < previous_coverage:
+                click.echo(f"Current code coverage has decreased. Loss: {change}%")
+                raise DiminishingCoverageError
+            if current_coverage > previous_coverage:
+                click.echo(f"Current code coverage has increased. Win: {change}%")
+            else:
+                click.echo(f"Current code coverage is: {current_coverage}%")
+        except:
+            return 1
         
 def _insert_coverage():
     
@@ -135,8 +136,8 @@ def insert():
 
 @cli.command("commit")
 def insert_and_check():
-    _insert_coverage()
     _check_coverage()
+    _insert_coverage()
 
 if __name__ == '__main__':
     cli()
