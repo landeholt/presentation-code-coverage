@@ -128,7 +128,7 @@ def _insert_coverage():
 
 @cli.command("check")
 def check():
-    _check_coverage()
+    return _check_coverage()
 
 @cli.command("update")
 def insert():
@@ -136,7 +136,9 @@ def insert():
 
 @cli.command("commit")
 def insert_and_check():
-    _check_coverage()
+    res = _check_coverage()
+    if res == 1:
+        return res
     _insert_coverage()
 
 if __name__ == '__main__':
