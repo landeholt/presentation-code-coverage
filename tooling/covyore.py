@@ -118,9 +118,15 @@ def _insert_coverage():
     
     db = DB()
     
-    current_hash = get_commit_hash().strip()
+    current_hash = get_commit_hash()
     
     current_coverage = get_total_coverage()
+    
+    previous_hash = get_commit_hash(1)
+    previous_coverage = db.select_coverage(previous_hash)
+    
+    if previous_coverage > current_coverage:
+        return sys.exit("Coverage decrease detected!")
     
     db.insert_coverage(current_hash, current_coverage)
     res = {current_hash:current_coverage}
