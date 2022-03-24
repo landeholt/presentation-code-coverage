@@ -1,4 +1,4 @@
-from presentation_code_coverage import __version__
+from project import __version__
 
 
 def test_version():

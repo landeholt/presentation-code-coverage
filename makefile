@@ -1,2 +1,4 @@
 dev:
-	ptw --runner "pytest --picked --testmon";
+	ptw --runner "pytest --testmon";
+cov:
+	echo "hello world"
