@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import sqlite3
+import sys
 from typing import Optional
 import subprocess
 import json
@@ -142,4 +143,4 @@ def insert_and_check():
     _insert_coverage()
 
 if __name__ == '__main__':
-    cli()
+    sys.exit(cli())
