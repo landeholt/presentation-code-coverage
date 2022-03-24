@@ -91,8 +91,8 @@ def calc_change(new: float, old: float):
 def cli():
     pass
 
-@cli.command("check")
-def check_coverage():
+
+def _check_coverage():
     count = get_commit_count()
     
     if count > 1:
@@ -112,8 +112,7 @@ def check_coverage():
         else:
             click.echo(f"Current code coverage is: {current_coverage}%")
         
-@cli.command("update")
-def insert_coverage():
+def _insert_coverage():
     
     db = DB()
     
@@ -125,12 +124,18 @@ def insert_coverage():
     res = {current_hash:current_coverage}
     click.echo(res)
 
+@cli.command("check")
+def check():
+    _check_coverage()
+
+@cli.command("update")
+def insert():
+    _insert_coverage()
+
 @cli.command("commit")
-@click.option("--files", multiple=True)
-def insert_and_check(files):
-    print(files)
-    #insert_coverage()
-    #check_coverage()
+def insert_and_check():
+    _insert_coverage()
+    _check_coverage()
 
 if __name__ == '__main__':
     cli()
