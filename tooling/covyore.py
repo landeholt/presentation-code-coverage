@@ -125,5 +125,12 @@ def insert_coverage():
     res = {current_hash:current_coverage}
     click.echo(res)
 
+@cli.command("commit")
+@click.option("--files", multiple=True)
+def insert_and_check(files):
+    print(files)
+    #insert_coverage()
+    #check_coverage()
+
 if __name__ == '__main__':
     cli()

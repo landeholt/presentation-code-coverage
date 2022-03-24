@@ -9,5 +9,6 @@ repos:
   hooks:
     - id: covyore
       name: covyore
-      entry: make covyore
+      pass_filenames: false
+      entry: tooling/covyore.py commit
       language: system
