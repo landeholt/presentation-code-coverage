@@ -69,6 +69,7 @@ def get_commit_hash(level: Optional[int] = None):
     return result
 
 def get_total_coverage():
+    subprocess.run(["coverage", "run", "-m", "pytest"])
     output = subprocess.run(["coverage", "json", "-o", "/dev/stdout"], capture_output=True)
     data = output.stdout.decode(encoding="utf8")[:-33]
     if data == b"No data to report.\n":
