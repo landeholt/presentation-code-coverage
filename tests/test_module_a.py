@@ -6,4 +6,4 @@ def test_addition():
     assert addition(60,9) == 69
 
 def test_subtraction():
-    assert subtraction(42069, 42000) == 69
+    assert subtraction(42069, 42000) == 60
