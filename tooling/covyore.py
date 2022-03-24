@@ -104,6 +104,7 @@ def _check_coverage():
         previous_coverage = float(db.select_coverage(previous_hash) or 0)
         change = calc_change(current_coverage, previous_coverage)
         
+        print(current_coverage, previous_coverage)
         if current_coverage < previous_coverage:
             click.echo(f"Current code coverage has decreased. Loss: {change}%")
             raise DiminishingCoverageError
