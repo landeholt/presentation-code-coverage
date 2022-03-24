@@ -6,6 +6,7 @@ authors = ["landeholt <johnlan@kth.se>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+click = "^8.0.4"
 
 [tool.coverage]
 fail_under = 0.5

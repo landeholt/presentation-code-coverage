@@ -1,4 +1,4 @@
 dev:
 	ptw --runner "pytest --testmon";
-cov:
-	echo "hello world"
+covyore:
+	tooling/covyore.py update
