@@ -106,14 +106,13 @@ def _check_coverage():
         change = calc_change(current_coverage, previous_coverage)
         try:
             if current_coverage < previous_coverage:
-                click.echo(f"Current code coverage has decreased. Loss: {change}%")
-                raise DiminishingCoverageError
+                raise DiminishingCoverageError(f"Current code coverage has decreased. Loss: {change}%")
             if current_coverage > previous_coverage:
                 click.echo(f"Current code coverage has increased. Win: {change}%")
             else:
                 click.echo(f"Current code coverage is: {current_coverage}%")
-        except:
-            return 1
+        except Exception as e:
+            sys.exit(e)
         
 def _insert_coverage():
     
@@ -137,10 +136,8 @@ def insert():
 
 @cli.command("commit")
 def insert_and_check():
-    res = _check_coverage()
-    if res == 1:
-        return res
     _insert_coverage()
+    _check_coverage()
 
 if __name__ == '__main__':
-    sys.exit(cli())
+    cli()
