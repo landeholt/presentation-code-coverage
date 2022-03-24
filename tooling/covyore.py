@@ -40,7 +40,11 @@ class DB:
         with self.con as con:
             cursor = con.cursor()
             
-            return cursor.execute("SELECT coverage FROM hashes WHERE hashid=?", [hashid]).fetchone()[0]
+            row = cursor.execute("SELECT coverage FROM hashes WHERE hashid=?", [hashid]).fetchone()
+            if row:
+                return row[0]
+            else:
+                return 0
     def __enter__(self):
         self.con = self.con.__enter__()
         return self
@@ -75,6 +79,8 @@ def get_total_coverage():
 def calc_change(new: float, old: float):
     if old < 1e-5:
         return new
+    if new < 1e-5:
+        return -1 * old
     if new > old:
         return (new - old) / old
     else:
